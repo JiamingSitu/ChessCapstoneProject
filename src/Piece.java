@@ -1,17 +1,24 @@
 import java.util.ArrayList;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
 
 
 public abstract class Piece {
 	
 	String name;
 	
-	public int row;
-	public int col;
+	public static final int PIXELS_PER_INCH = 10;
 	
-	public int value;
+	protected int row;
+	protected int col;
 	
-	public boolean isWhite = true;
-	public boolean isKing = false;
+	protected int value;
+	
+	protected boolean isWhite;
+	protected boolean isKing;
+	
+	protected Image picB, picW;
 	
 	ArrayList<String> possibleMoves; // format "r,c"
 	
@@ -23,9 +30,11 @@ public abstract class Piece {
 	}
 	
 	
-	public abstract void findPossibleMoves();
+	protected abstract void findPossibleMoves();
 	
-	public abstract void drawPicture();
+	public void drawPicture(int x, int y, Graphics g) {
+		
+	}
 	
 	public ArrayList<String> getPossibleMoves(){
 		return possibleMoves;

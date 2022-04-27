@@ -31,6 +31,11 @@ public class Chessboard extends JPanel{
 		
 		
 		
+		
+		
+		
+		
+		
 	}
 	
 	public void drawBoard() {

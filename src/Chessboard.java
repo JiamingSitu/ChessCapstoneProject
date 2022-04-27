@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Chessboard extends JPanel{
-	public final int WINDOW_SIZE = 500;
+	public final int WINDOW_SIZE = 600;
 	public int boardWidth, boardHeight; // in tiles
 	private int gridSize; 				// in pixels
 	
@@ -15,6 +15,23 @@ public class Chessboard extends JPanel{
 		boardWidth = bW;
 		boardHeight = bH;
 		gridSize = WINDOW_SIZE / (Math.max(bW, bH) + 1);
+	}
+	
+	private Piece toPiece(char c) {
+		if (c == 'p') {
+			return new Pawn();
+		}
+//		else if (c == 'b') {
+//			return new Bishop();
+//		}
+		
+		
+		
+		
+		
+		
+		
+		else return new Pawn(); // placeholder
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -30,7 +47,30 @@ public class Chessboard extends JPanel{
 			for (int j = 0; j < boardWidth; j++) 
 				g.drawRect(j * gridSize + leftOffset, i * gridSize + topOffset, gridSize, gridSize);
 			
-		
+		for (int i = 0; i < boardHeight; i++) {
+			for (int j = 0; j < boardWidth; j++) {
+				int xCoord = j * gridSize + leftOffset;
+				int yCoord = i * gridSize + topOffset;
+				
+				boolean isOnWhite = true;
+				if (i <= boardHeight / 2) isOnWhite = false;
+				
+				char curPieceName = board.get(i).get(j);
+				if (curPieceName == ' ') continue;
+				
+				
+				
+				Piece curPiece = toPiece(curPieceName);
+				
+				curPiece.isWhite = isOnWhite;
+				curPiece.row = i;
+				curPiece.col = j;
+				curPiece.drawPicture(xCoord, yCoord, true, g);
+
+				
+				
+			}
+		}
 		
 		
 	}

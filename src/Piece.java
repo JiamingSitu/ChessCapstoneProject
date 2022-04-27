@@ -8,7 +8,7 @@ import java.awt.Graphics;
 
 public abstract class Piece {
 	
-	String name;
+	char name;
 	
 	public static final int PIXELS_PER_INCH = 10;
 	
@@ -27,7 +27,7 @@ public abstract class Piece {
 	ArrayList<String> possibleMoves; // format "r,c"
 	
 	
-	public Piece (String n, int r, int c) {
+	public Piece (char n, int r, int c) {
 		name = n;
 		row = r;
 		col = c;

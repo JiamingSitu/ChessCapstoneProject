@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 public class Chess {
 
@@ -16,9 +17,10 @@ public class Chess {
 	private static boolean[] fillRow = {true, true, false, false, false, false, true, true};
 	
 	
+	
 	public static ArrayList<ArrayList<Character>> generateBoard(){
 		ArrayList<ArrayList<Character>> boardSetup = new ArrayList<ArrayList<Character>>();
-		boolean kingExists = false;
+		int kingCounter = 0;
 		
 		for (int i = 0; i < rowNum; i++) {
 			ArrayList<Character> temp = new ArrayList<Character>();
@@ -32,14 +34,14 @@ public class Chess {
 				
 				int pieceIndex = (int)(6 * Math.random());
 				
-				while (kingExists && pieceIndex == KING)
+				while (kingCounter >= 2 && pieceIndex == KING)
 					pieceIndex = (int)(6 * Math.random());
 				
 				
 				
 				temp.add(availablePieces[pieceIndex]);
 				
-				if (pieceIndex == KING) kingExists = true;
+				if (pieceIndex == KING) kingCounter++;
 			}
 			
 			boardSetup.add(temp);
@@ -49,12 +51,12 @@ public class Chess {
 	
 	public static void main (String[] args) {
 		
-		
-		
 		Chessboard CB = new Chessboard(rowNum, colNum); // width, height
 		CB.drawBoard();
 		
 		CB.board = generateBoard();
+		
+		System.out.println(CB.board.toString());
 		
 
 		

@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Color;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -8,6 +9,7 @@ public class Chessboard extends JPanel{
 	public int boardWidth, boardHeight; // in tiles
 	private int gridSize; 				// in pixels
 	
+	public ArrayList<ArrayList<Character>> board;
 	
 	public Chessboard(int bW, int bH) {
 		boardWidth = bW;
@@ -28,11 +30,6 @@ public class Chessboard extends JPanel{
 			for (int j = 0; j < boardWidth; j++) 
 				g.drawRect(j * gridSize + leftOffset, i * gridSize + topOffset, gridSize, gridSize);
 			
-		
-		
-		
-		
-		
 		
 		
 		

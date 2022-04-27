@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Graphics;	
+
 
 
 public abstract class Piece {
@@ -18,7 +20,9 @@ public abstract class Piece {
 	protected boolean isWhite;
 	protected boolean isKing;
 	
-	protected Image picB, picW;
+	protected Image picW, picB;
+	
+	
 	
 	ArrayList<String> possibleMoves; // format "r,c"
 	
@@ -32,8 +36,9 @@ public abstract class Piece {
 	
 	protected abstract void findPossibleMoves();
 	
-	public void drawPicture(int x, int y, Graphics g) {
-		
+	public void drawPicture(int x, int y, boolean isWhite, Graphics g) {
+		if (isWhite) g.drawImage(picW, x, y, null);	
+		else		 g.drawImage(picB, x, y, null);
 	}
 	
 	public ArrayList<String> getPossibleMoves(){

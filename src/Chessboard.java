@@ -9,7 +9,7 @@ public class Chessboard extends JPanel{
 	public int boardWidth, boardHeight; // in tiles
 	private int gridSize; 				// in pixels
 	
-	public ArrayList<ArrayList<Character>> board;
+	public ArrayList<ArrayList<Piece>> board;
 	
 	public Chessboard(int bW, int bH) {
 		boardWidth = bW;
@@ -17,7 +17,7 @@ public class Chessboard extends JPanel{
 		gridSize = WINDOW_SIZE / (Math.max(bW, bH) + 1);
 	}
 	
-	private Piece toPiece(char c) {
+	public Piece toPiece(char c) {
 		if (c == 'p') {
 			return new Pawn();
 		}
@@ -55,12 +55,8 @@ public class Chessboard extends JPanel{
 				boolean isOnWhite = true;
 				if (i <= boardHeight / 2) isOnWhite = false;
 				
-				char curPieceName = board.get(i).get(j);
-				if (curPieceName == ' ') continue;
-				
-				
-				
-				Piece curPiece = toPiece(curPieceName);
+				Piece curPiece = board.get(i).get(j);
+				if (curPiece.name == 'E') continue;
 				
 				curPiece.isWhite = isOnWhite;
 				curPiece.row = i;

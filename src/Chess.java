@@ -13,22 +13,22 @@ public class Chess {
 	public final static int QUEEEN = 4;
 	public final static int KING = 5;
 	
-	private static char[] availablePieces = {'p', 'b', 'n', 'r', 'q', 'k'};
+	private static Piece[] availablePieces = {new Pawn()/*, new Bishop(), new Knight(), new Rook(), new Queen(), new King()*/};
 	private static boolean[] fillRow = {true, true, false, false, false, false, true, true};
 	
 	
 	
-	public static ArrayList<ArrayList<Character>> generateBoard(){
-		ArrayList<ArrayList<Character>> boardSetup = new ArrayList<ArrayList<Character>>();
+	public static ArrayList<ArrayList<Piece>> generateBoard(){
+		ArrayList<ArrayList<Piece>> boardSetup = new ArrayList<ArrayList<Piece>>();
 		int kingCounter = 0;
 		
 		for (int i = 0; i < rowNum; i++) {
-			ArrayList<Character> temp = new ArrayList<Character>();
+			ArrayList<Piece> temp = new ArrayList<Piece>();
 			
 			for (int j = 0; j < colNum; j++) {
 				
 				if (!fillRow[i]) {
-					temp.add(' ');
+					temp.add(new Empty());
 					continue;
 				}
 				
@@ -36,6 +36,10 @@ public class Chess {
 				
 				while (kingCounter >= 2 && pieceIndex == KING)
 					pieceIndex = (int)(6 * Math.random());
+				
+				
+				
+				pieceIndex = 0; // REMOVE THIS LATER ONCE ALL PIECE ARE IMPLEMENTED
 				
 				
 				

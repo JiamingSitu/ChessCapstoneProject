@@ -19,7 +19,9 @@ public class Pawn extends Piece {
 		super.picW = (new ImageIcon("Chess_plt60.png")).getImage();
 	}
 	
-	
+	public Pawn dupeThis () {
+		return new Pawn();
+	}
 	
 	final int[] wMoveX = {0};
 	final int[] wMoveY = {1};

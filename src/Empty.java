@@ -16,6 +16,11 @@ public class Empty extends Piece {
 		super.picW = null;
 	}
 	
+	public Pawn dupeThis () {
+		return null;
+	}
+	
+	
 	public void findPossibleMoves(ArrayList<ArrayList<Piece>> board){
 		// Empty
 	}

@@ -32,6 +32,8 @@ public abstract class Piece {
 	}
 	
 	
+	public abstract Piece dupeThis();
+	
 	protected abstract void findPossibleMoves(ArrayList<ArrayList<Piece>> board);
 	
 	public void drawPicture(int x, int y, boolean isWhite, Graphics g) {

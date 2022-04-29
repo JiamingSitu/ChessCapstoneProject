@@ -12,14 +12,14 @@ public class Chess {
 	public final static int QUEEEN = 4;
 	public final static int KING = 5;
 	
-	private static Piece[] availablePieces = {new Pawn()/*, new Bishop(), new Knight(), new Rook(), new Queen(), new King()*/};
+	private static Piece[] availablePieces = {new Pawn(), new Bishop()/*, new Knight(), new Rook(), new Queen()*/, new King()};
 	private static boolean[] fillRow = {true, true, false, false, false, false, true, true};
-	
-	
 	
 	public static ArrayList<ArrayList<Piece>> generateBoard(){
 		ArrayList<ArrayList<Piece>> boardSetup = new ArrayList<ArrayList<Piece>>();
-		int kingCounter = 0;
+		
+		boolean wKingExists = false;
+		boolean bKingExists = false;
 		
 		for (int i = 0; i < rowNum; i++) {
 			ArrayList<Piece> temp = new ArrayList<Piece>();
@@ -31,25 +31,50 @@ public class Chess {
 					continue;
 				}
 				
-				int pieceIndex = (int)(6 * Math.random());
+				int pieceIndex;
 				
-				while (kingCounter >= 2 && pieceIndex == KING)
-					pieceIndex = (int)(6 * Math.random());
+				if (i <= rowNum / 2 && bKingExists) pieceIndex = (int)((availablePieces.length - 1) * Math.random());
+				else if (i > rowNum / 2 && wKingExists) pieceIndex = (int)((availablePieces.length - 1) * Math.random());
+				else pieceIndex = (int)(availablePieces.length * Math.random());
+					
 				
+
 				
+				Piece nextPiece = availablePieces[pieceIndex].dupeThis();
 				
-				pieceIndex = 0; // REMOVE THIS LATER ONCE ALL PIECE ARE IMPLEMENTED
+				temp.add(nextPiece);
 				
+				if (i <= rowNum / 2 && pieceIndex == 2) {
+					bKingExists = true;
+				}
 				
-				
-				temp.add(availablePieces[pieceIndex]);
-				
-				if (pieceIndex == KING) kingCounter++;
+				else if (pieceIndex == 2) {
+					wKingExists = true;
+				}
 			}
 			
 			boardSetup.add(temp);
 		}
 		return boardSetup;
+	}
+	
+	
+	private static boolean isLegal(ArrayList<ArrayList<Piece>> B) {
+		boolean wKingExists = false;
+		boolean bKingExists = false;
+		
+		for (int i = 0; i < rowNum; i++) {
+			for (int j = 0; j < colNum; j++) {
+				Piece curPiece = B.get(i).get(j);
+				
+				if (curPiece.isKing) {
+					if (curPiece.isWhite) wKingExists = true;
+					if(!curPiece.isWhite) bKingExists = true;
+				}
+				
+			}
+		}
+		return wKingExists && bKingExists;
 	}
 	
 	public static void main (String[] args) {
@@ -58,6 +83,8 @@ public class Chess {
 		CB.drawBoard();
 		
 		CB.board = generateBoard();
+		
+		while (isLegal(CB.board) == false) CB.board = generateBoard();
 		
 		
 		

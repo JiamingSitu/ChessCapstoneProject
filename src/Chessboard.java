@@ -9,7 +9,7 @@ public class Chessboard extends JPanel{
 	public int boardWidth, boardHeight; // in tiles
 	private int gridSize; 				// in pixels
 	
-	public ArrayList<ArrayList<Piece>> board;
+	public ArrayList<ArrayList<Piece>> board/* = new ArrayList<ArrayList<Piece>>()*/;
 	
 	public Chessboard(int bW, int bH) {
 		boardWidth = bW;

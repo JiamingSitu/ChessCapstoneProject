@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.awt.Image;
-import javax.swing.ImageIcon;
-import java.awt.Color;
 import java.awt.Graphics;	
 
 
@@ -34,7 +32,7 @@ public abstract class Piece {
 	}
 	
 	
-	protected abstract void findPossibleMoves();
+	protected abstract void findPossibleMoves(ArrayList<ArrayList<Piece>> board);
 	
 	public void drawPicture(int x, int y, boolean isWhite, Graphics g) {
 		if (isWhite) g.drawImage(picW, x, y, null);	

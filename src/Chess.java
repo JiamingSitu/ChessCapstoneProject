@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.TreeMap;
 
 public class Chess {
 
@@ -59,6 +58,8 @@ public class Chess {
 		CB.drawBoard();
 		
 		CB.board = generateBoard();
+		
+		
 		
 		System.out.println(CB.board.toString());
 		

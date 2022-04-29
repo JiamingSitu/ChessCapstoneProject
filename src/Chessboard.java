@@ -61,7 +61,7 @@ public class Chessboard extends JPanel{
 				curPiece.isWhite = isOnWhite;
 				curPiece.row = i;
 				curPiece.col = j;
-				curPiece.drawPicture(xCoord, yCoord, true, g);
+				curPiece.drawPicture(xCoord, yCoord, curPiece.isWhite, g);
 
 				
 				

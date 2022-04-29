@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 public class Empty extends Piece {
@@ -14,12 +16,8 @@ public class Empty extends Piece {
 		super.picW = null;
 	}
 	
-	public void findPossibleMoves(){
-		
-	}
-	
-	public void drawPicture() {
-		
+	public void findPossibleMoves(ArrayList<ArrayList<Piece>> board){
+		// Empty
 	}
 	
 }

@@ -1,9 +1,14 @@
 import java.util.ArrayList;
+import java.awt.event.*; 
+import javax.swing.*;	
+import javax.swing.JFrame;
 
 public class Chess {
 
 	public static int rowNum = 8;
 	public static int colNum = 8;
+	
+	private static final boolean standardKingPos = true;
 	
 	public final static int PAWN = 0;
 	public final static int KNIGHT = 1;
@@ -18,9 +23,6 @@ public class Chess {
 	public static ArrayList<ArrayList<Piece>> generateBoard(){
 		ArrayList<ArrayList<Piece>> boardSetup = new ArrayList<ArrayList<Piece>>();
 		
-		boolean wKingExists = false;
-		boolean bKingExists = false;
-		
 		for (int i = 0; i < rowNum; i++) {
 			ArrayList<Piece> temp = new ArrayList<Piece>();
 			
@@ -31,31 +33,24 @@ public class Chess {
 					continue;
 				}
 				
-				int pieceIndex;
-				
-				if (i <= rowNum / 2 && bKingExists) pieceIndex = (int)((availablePieces.length - 1) * Math.random());
-				else if (i > rowNum / 2 && wKingExists) pieceIndex = (int)((availablePieces.length - 1) * Math.random());
-				else pieceIndex = (int)(availablePieces.length * Math.random());
+				// this excludes last piece from being rolled (the king)
+				int pieceIndex = (int)((availablePieces.length - 1) * Math.random());
 					
+				Piece nextPiece;
 				
+				if (standardKingPos && j == 4 && (i == 0 || i == rowNum - 1)) 
+					nextPiece = availablePieces[availablePieces.length - 1].dupeThis(); // is a king
+				else
+					nextPiece = availablePieces[pieceIndex].dupeThis();
 
 				
-				Piece nextPiece = availablePieces[pieceIndex].dupeThis();
-				
 				temp.add(nextPiece);
-				
-				if (i <= rowNum / 2 && pieceIndex == 2) {
-					bKingExists = true;
-				}
-				
-				else if (pieceIndex == 2) {
-					wKingExists = true;
-				}
 			}
-			
 			boardSetup.add(temp);
 		}
+		
 		return boardSetup;
+		
 	}
 	
 	
@@ -80,20 +75,16 @@ public class Chess {
 	public static void main (String[] args) {
 		
 		Chessboard CB = new Chessboard(rowNum, colNum); // width, height
-		CB.drawBoard();
+		
+		
+		JFrame window = new JFrame("Chessboard");
+		JPanel panel = new JPanel();
+
+		CB.drawBoard(window, panel);
+
 		
 		CB.board = generateBoard();
 		
-		while (isLegal(CB.board) == false) CB.board = generateBoard();
-		
-		
-		
 		System.out.println(CB.board.toString());
-		
-
-		
-		
-		
-		
 	}
 }

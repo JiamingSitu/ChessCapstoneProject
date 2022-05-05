@@ -1,4 +1,6 @@
 import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -62,7 +64,7 @@ public class Chessboard extends JPanel{
 				curPiece.row = i;
 				curPiece.col = j;
 				curPiece.drawPicture(xCoord, yCoord, curPiece.isWhite, g);
-
+				
 				
 				
 			}
@@ -71,16 +73,22 @@ public class Chessboard extends JPanel{
 		
 	}
 	
-	public void drawBoard() {
+	public void drawBoard(JFrame window, JPanel panel) {
+
+		window.add(panel);
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed (MouseEvent e) {
+				System.out.println(e.getX() + " " + e.getY());
+			}
+		});
 		
-		JFrame window = new JFrame("Chessboard");
 		window.setBounds(100, 100, WINDOW_SIZE, WINDOW_SIZE);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.WHITE);
 		window.getContentPane().add(this);
 		window.setResizable(false);
 		window.setVisible(true);
-		
 	}
 	
 	

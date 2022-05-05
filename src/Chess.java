@@ -1,31 +1,25 @@
 import java.util.ArrayList;
 import java.awt.event.*; 
-import javax.swing.*;	
 import javax.swing.JFrame;
+import java.awt.Point;
 
 public class Chess {
 
-	public static int rowNum = 8;
-	public static int colNum = 8;
-	
+	private static final int rowNum = 8;
+	private static final int colNum = 8;
 	private static final boolean standardKingPos = true;
 	
-	public final static int PAWN = 0;
-	public final static int KNIGHT = 1;
-	public final static int BISHOP = 2;
-	public final static int ROOK = 3;
-	public final static int QUEEEN = 4;
-	public final static int KING = 5;
+	private static final Piece[] availablePieces = {new Pawn(), new Bishop()/*, new Knight(), new Rook(), new Queen()*/, new King()}; // make sure king is the back-most piece
 	
-	private static Piece[] availablePieces = {new Pawn(), new Bishop()/*, new Knight(), new Rook(), new Queen()*/, new King()};
-	private static boolean[] fillRow = {true, true, false, false, false, false, true, true};
+	private static final boolean[] fillRow = {true, true, false, false, false, false, true, true};
+	
+	
 	
 	public static ArrayList<ArrayList<Piece>> generateBoard(){
 		ArrayList<ArrayList<Piece>> boardSetup = new ArrayList<ArrayList<Piece>>();
 		
 		for (int i = 0; i < rowNum; i++) {
 			ArrayList<Piece> temp = new ArrayList<Piece>();
-			
 			for (int j = 0; j < colNum; j++) {
 				
 				if (!fillRow[i]) {
@@ -48,43 +42,35 @@ public class Chess {
 			}
 			boardSetup.add(temp);
 		}
-		
 		return boardSetup;
-		
 	}
 	
+	private static Point selectedGrid = new Point(-1, -1);
 	
-	private static boolean isLegal(ArrayList<ArrayList<Piece>> B) {
-		boolean wKingExists = false;
-		boolean bKingExists = false;
-		
-		for (int i = 0; i < rowNum; i++) {
-			for (int j = 0; j < colNum; j++) {
-				Piece curPiece = B.get(i).get(j);
-				
-				if (curPiece.isKing) {
-					if (curPiece.isWhite) wKingExists = true;
-					if(!curPiece.isWhite) bKingExists = true;
-				}
-				
-			}
-		}
-		return wKingExists && bKingExists;
-	}
+
 	
 	public static void main (String[] args) {
 		
 		Chessboard CB = new Chessboard(rowNum, colNum); // width, height
-		
-		
 		JFrame window = new JFrame("Chessboard");
-		JPanel panel = new JPanel();
+		window.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed (MouseEvent e) {
+				selectedGrid = CB.clickedGridIndex(e.getX(), e.getY());
+				System.out.println(e.getX() + " " + e.getY());
+				System.out.println(selectedGrid.toString());
+				System.out.println(CB.board.get(selectedGrid.y).get(selectedGrid.x).name + "\n");
+			}
+		});
 
-		CB.drawBoard(window, panel);
+		CB.drawBoard(window);
 
 		
 		CB.board = generateBoard();
 		
 		System.out.println(CB.board.toString());
+		
+		
+		
 	}
 }

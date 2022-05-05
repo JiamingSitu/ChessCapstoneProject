@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
@@ -7,11 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Chessboard extends JPanel{
-	public final int WINDOW_SIZE = 600;
 	public int boardWidth, boardHeight; // in tiles
 	private int gridSize; 				// in pixels
 	
 	public ArrayList<ArrayList<Piece>> board/* = new ArrayList<ArrayList<Piece>>()*/;
+
+	public final int WINDOW_SIZE = 600;
+
+	private int topOffset, leftOffset;
 	
 	public Chessboard(int bW, int bH) {
 		boardWidth = bW;
@@ -19,31 +23,14 @@ public class Chessboard extends JPanel{
 		gridSize = WINDOW_SIZE / (Math.max(bW, bH) + 1);
 	}
 	
-	public Piece toPiece(char c) {
-		if (c == 'p') {
-			return new Pawn();
-		}
-//		else if (c == 'b') {
-//			return new Bishop();
-//		}
-		
-		
-		
-		
-		
-		
-		
-		else return new Pawn(); // placeholder
-	}
-	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
 		// System.out.println(gridSize);
-		
-		int topOffset, leftOffset;
 		topOffset = (WINDOW_SIZE - gridSize * boardHeight) / 2;
 		leftOffset = (WINDOW_SIZE - gridSize * boardWidth) / 2;
+		
+		System.out.println("Left Offset: " + leftOffset + ", Top Offset: " + topOffset + ", Grid Size: " + gridSize);
 		
 		for (int i = 0; i < boardHeight; i++) 
 			for (int j = 0; j < boardWidth; j++) 
@@ -69,29 +56,26 @@ public class Chessboard extends JPanel{
 				
 			}
 		}
-		
-		
 	}
 	
-	public void drawBoard(JFrame window, JPanel panel) {
-
-		window.add(panel);
-		panel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed (MouseEvent e) {
-				System.out.println(e.getX() + " " + e.getY());
-			}
-		});
+	public Point clickedGridIndex (int xClicked, int yClicked) {
+		Point output = new Point(-1, -1);
+		
+		output.x = (int)((xClicked - leftOffset) / gridSize);
+		output.y = (int)((yClicked - topOffset - 25) / gridSize); // magical 25 here to account for tab thing at top of jframe
+		
+		return output;
+	}
+	
+	
+	public void drawBoard(JFrame window) {
 		
 		window.setBounds(100, 100, WINDOW_SIZE, WINDOW_SIZE);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBackground(Color.WHITE);
+		window.setBackground(Color.WHITE);
 		window.getContentPane().add(this);
 		window.setResizable(false);
+		
 		window.setVisible(true);
 	}
-	
-	
-	
-	
 }

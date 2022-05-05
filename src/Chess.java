@@ -57,9 +57,15 @@ public class Chess {
 			@Override
 			public void mousePressed (MouseEvent e) {
 				selectedGrid = CB.clickedGridIndex(e.getX(), e.getY());
-				System.out.println(e.getX() + " " + e.getY());
-				System.out.println(selectedGrid.toString());
-				System.out.println(CB.board.get(selectedGrid.y).get(selectedGrid.x).name + "\n");
+				if (selectedGrid.x != -1 && selectedGrid.y != -1) {
+					System.out.println(e.getX() + " " + e.getY());
+					System.out.println(selectedGrid.toString());
+					System.out.println(CB.board.get(selectedGrid.y).get(selectedGrid.x).name + "\n");
+				}
+				
+				// resetting
+				selectedGrid.x = -1;
+				selectedGrid.y = -1;
 			}
 		});
 

@@ -64,6 +64,12 @@ public class Chessboard extends JPanel{
 		output.x = (int)((xClicked - leftOffset) / gridSize);
 		output.y = (int)((yClicked - topOffset - 25) / gridSize); // magical 25 here to account for tab thing at top of jframe
 		
+		// if the click is out of bounds
+		if (output.x >= boardWidth || output.y >= boardHeight || xClicked < leftOffset || yClicked < topOffset + 25) {
+			output.x = -1;
+			output.y = -1;
+		}
+		
 		return output;
 	}
 	
